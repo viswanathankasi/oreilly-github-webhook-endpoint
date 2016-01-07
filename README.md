@@ -25,7 +25,7 @@ But this is just on your machine, and you need GitHub’s servers to be able to 
 
   1. [Download](https://ngrok.com/download) ngrok
   2. Make a note of the port your webhook endpoint ran on; for these instructions, we'll assume it was `53770`
-  3. Open another Terminal window, and run `ngrok <the-port>`, for instance `ngrok 53770`.
+  3. Open another Terminal window, and run `ngrok http <the-port>`, for instance `ngrok http 53770`.
 
 This will clear the window and run an ngrok client on your machine, acting as a sort of reverse-proxy so the internet can access your server, both over HTTPS and HTTP.  After a second or two, you should see something that looks like this:
 
