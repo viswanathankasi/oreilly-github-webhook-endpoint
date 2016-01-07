@@ -31,12 +31,13 @@ This will clear the window and run an ngrok client on your machine, acting as a 
 
 ```text
 Tunnel Status                 online
-Version                       1.6/1.7
-Forwarding                    http://1420f0d6.ngrok.com -> 127.0.0.1:53770
-Forwarding                    https://1420f0d6.ngrok.com -> 127.0.0.1:53770
+Version                       2.0.19/2.0.19
 Web Interface                 127.0.0.1:4040
-# Conn                        0
-Avg Conn Time                 0.00ms
+Forwarding                    http://1420f0d6.ngrok.com -> localhost:53770
+Forwarding                    https://1420f0d6.ngrok.com -> localhost:53770
+
+Connections                   ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00
 ```
 
 Until you stop ngrok by hitting <kbd>Ctrl+C</kbd>, you've got your tunnel running.  You can now configure your Webhook to use the public URL based off `ngrok.com`, and this webhook server will dump the JSON payloads GitHub sends into its own Terminal console.
