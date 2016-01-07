@@ -1,0 +1,9 @@
+{
+  "name": "webhook-endpoint",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "colors": "^1.1.2",
+    "raw-body": "^2.1.5"
+  }
+}
