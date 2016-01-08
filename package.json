@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "async": "^1.5.1",
+    "buffer-equal-constant-time": "^1.0.1",
     "colors": "^1.1.2",
     "raw-body": "^2.1.5"
   }
