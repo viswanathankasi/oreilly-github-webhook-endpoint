@@ -12,7 +12,8 @@ var server = http.createServer(function(req, res) {
   getBody(req, { encoding: 'utf-8' }, function(err, text) {
     // Error?  Dang!  Send the matching response back and be done.
     if (err) {
-      return res.head(err.status).end(err.type);
+      res.statusCode = err.status;
+      return res.end(err.type);
     }
 
     // All dandy?  Cool, parse the JSON and display it in the console!
