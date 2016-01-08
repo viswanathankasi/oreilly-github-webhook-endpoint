@@ -19,6 +19,7 @@ This will run the server on a **random available port** of your machine, which w
 > node server.js
 
 Demo webhook endpoint listening on port 53770
+Secret token for this run is: 28c927e5a40b12b27899730275c4a4b5dbccf2e8ffeab65d5ca7fe015666c862
 ```
 
 But this is just on your machine, and you need GitHub’s servers to be able to access it.  For this, you need some sort of tunnel that connects some network port and address visible to the internet to your own machine and port.  One of the easiest ways to accomplish that across environments and setups is **[ngrok](https://ngrok.com/)**.
