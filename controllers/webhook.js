@@ -8,6 +8,7 @@ var util            = require('util');
 var verifySignature = require('../lib/verify-signature');
 
 var router = new express.Router();
+
 router.post('/webhook', handleWebhookEvent);
 
 var SECRET_TOKEN = require('crypto').randomBytes(32).toString('hex');
