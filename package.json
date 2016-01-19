@@ -10,6 +10,9 @@
     "express": "^4.13.3",
     "getport": "^0.1.0",
     "github": "^0.2.4",
-    "raw-body": "^2.1.5"
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1",
+    "raw-body": "^2.1.5",
+    "superagent": "^1.7.0"
   }
 }

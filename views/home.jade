@@ -1,0 +1,38 @@
+doctype html
+body(lang="en")
+  head
+    meta(charset="utf-8")
+    title O’Reilly GitHub Training Demo Server (API chapter)
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
+    link(rel="stylesheet" href="//oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.css")
+  body
+    .pusher
+      .ui.inverted.vertical.masthead.center.aligned.segment
+        .ui.text.container
+          h1.ui.inverted.header GitHub API FTW!
+          h2 Play with this demo server to get started
+          //- Depending on authentication status server-side, we switch button lists
+          if authenticated
+            a.ui.primary.large.button(href=reviewPermissionsURL target="_new")
+              i.left.icon.checkmark.box
+              |  Review your permissions
+            a.ui.large.button(href='/oauth/check_token')
+              i.left.icon.refresh
+              |  Verify your token
+            a.ui.large.button(href='/webhook/setup')
+              i.left.icon.settings
+              |  Set up the hook
+          else
+            a.ui.huge.primary.button(href="/oauth/authorize")
+              i.left.icon.github.square
+              |  Authorize this app on GitHub
+      .ui.vertical.stripe.quote.segment
+        .ui.equal.width.stackable.internally.celled.grid
+          .center.aligned.row
+            .column
+              h3 “This video course is awesome!”
+              p Our viewers love this thing.
+            .column
+              h3 “Gotta love this API, for sure.”
+              p <strong>John Smith</strong>, random persona
