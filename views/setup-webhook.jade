@@ -1,0 +1,21 @@
+extend _layout
+block content
+  .ui.middle.aligned.center.aligned.grid
+    .column.six.wide
+      .ui.teal.header
+        h1.content Select the repo
+      form.ui.large.form(method="post")
+        style .field { text-align: left; }
+        .grouped.fields
+          label Which repo do you want to set up our webhook for?
+          each repo, index in repos
+            p.field: label
+                input(type="radio" name="nwo" value=repo.full_name checked=(0 === index))
+                |   #{repo.full_name}
+        .ui.divider
+        p.field
+         label(for="ngrok_url") ngrok URL (required)
+         input(type="url" name="ngrok_url" id="ngrok_url" placeholder="https://xxxx.ngrok.io/webhook" required pattern="https://[0-9a-f]+\.ngrok\.io/webhook")
+        p: button.ui.large.primary.button(type="submit")
+          i.left.icon.plus
+          |  Setup the webhook

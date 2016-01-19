@@ -1,0 +1,3 @@
+for msg, kind in flash
+  - if ('success' === kind) kind = 'positive'
+  .ui.message.large(class=kind): p= msg

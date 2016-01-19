@@ -6,6 +6,7 @@ var GitHub  = require('github');
 var qs      = require('querystring');
 var request = require('superagent');
 var util    = require('util');
+var webhook = require('./webhook');
 
 var router = new express.Router();
 router.get('/',                   homePage);
@@ -39,12 +40,30 @@ function checkToken(req, res) {
 
       console.log('==== TOKEN CHECK RESPONSE ===='.green);
       console.log(util.inspect(saResponse.body, { colors: true }));
+      req.flash('info', 'Your OAuth token is still valid!');
       res.redirect('/');
     });
 }
 
 function configure(options) {
   credentials.callbackURL = options.rootURL + '/oauth/callback';
+}
+
+function createHook(params, callback) {
+  var repo = params.nwo.split('/');
+  var payload = {
+    user: repo[0],
+    repo: repo[1],
+    name: 'web',
+    config: {
+      url: params.url,
+      content_type: 'json',
+      secret: params.secretToken
+    },
+    events: ['pull_request'],
+    active: true
+  };
+  github.repos.createHook(payload, callback);
 }
 
 function exchangeAuthCodeForToken(req, res) {
@@ -73,9 +92,14 @@ function exchangeAuthCodeForToken(req, res) {
     });
 }
 
+function getRepositories(callback) {
+  github.repos.getAll({ per_page: 100 }, callback);
+}
+
 function homePage(req, res) {
   res.render('home', {
     authenticated: !!credentials.accessToken,
+    hookInstalled: webhook.hookInstalled(),
     reviewPermissionsURL: 'https://github.com/settings/connections/applications/' +
       credentials.clientId
   });
@@ -100,7 +124,7 @@ function loadCredentials() {
     process.exit();
   }
 
-  console.log('GitHub App credentials properly loaded.  Checking them…');
+  console.log('GitHub App credentials properly loaded.  Checking them…'.green);
   github.authenticate({
     type:   'oauth',
     key:    credentials.clientId,
@@ -117,6 +141,10 @@ function loadCredentials() {
       process.exit();
     }
     console.log('\\o/ GitHub App credentials seem to successfully authenticate.'.green);
+    if (credentials.accessToken) {
+      github.authenticate({ type: 'oauth', token: credentials.accessToken });
+      console.log('Using stored access token'.green, credentials.accessToken.cyan);
+    }
   });
 }
 
@@ -129,7 +157,7 @@ function requestGitHubAuthorization(req, res) {
   res.redirect(url);
 }
 
-module.exports = {
-  configure: configure,
-  router: router
-};
+exports.configure       = configure;
+exports.createHook      = createHook;
+exports.getRepositories = getRepositories;
+exports.router          = router;
