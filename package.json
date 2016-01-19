@@ -6,6 +6,8 @@
     "async": "^1.5.1",
     "buffer-equal-constant-time": "^1.0.1",
     "colors": "^1.1.2",
+    "express": "^4.13.3",
+    "getport": "^0.1.0",
     "raw-body": "^2.1.5"
   }
 }

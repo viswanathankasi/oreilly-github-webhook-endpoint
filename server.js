@@ -1,65 +1,38 @@
 'use strict';
 
-var async           = require('async');
-var getBody         = require('raw-body');
-var hmacSha1        = require('./lib/hmac-sha1');
-var http            = require('http');
-var util            = require('util');
-var verifySignature = require('./lib/verify-signature');
+var express = require('express');
+var getPort = require('getport');
+var http    = require('http');
+var webHook = require('./controllers/webhook');
+
+var DEFAULT_PORT = 45678;
 
 require('colors');
 
-var secretToken = require('crypto').randomBytes(32).toString('hex');
+var app = require('express')();
+var server = http.createServer(app);
 
-// The main HTTP request/response handler
-var server = http.createServer(function(req, res) {
+app.use(webHook.router);
 
-  // 1. Do two separate processings of the request's body stream in parallel
-  async.parallel([
-    // 1a. Compute the HMAC-SHA1 signature of the entire body (payload)
-    function(cb) { hmacSha1(req, secretToken, cb); },
-    // 1b. Get the request's entire body from its stream
-    function(cb) { getBody(req, { encoding: 'utf-8' }, cb); }
-  ],
+getPort(DEFAULT_PORT, function(err, port) {
+  if (err) {
+    console.error('Could not start server:', err);
+    process.exit(1);
+    return;
+  }
 
-  // 2. Then handle the results
-  function(err, results) {
-    // Error?  Dang!  Send the matching response back and be done.
-    if (err) {
-      res.statusCode = err.status || 500;
-      return res.end(err.type || 'Blam!');
+  // OK, so let's listen on a random available port then…
+  server.listen(port, function() {
+
+    // …and display it so we can `ngrok http` over it
+    console.log('Demo service listening on port'.green,
+      String(server.address().port).cyan);
+    if (DEFAULT_PORT !== port) {
+      console.log('/!\\ Beware!  This is not the intended port (%d): update your app registration.'.red, DEFAULT_PORT);
     }
 
-    // Display a delivery/event heading in the console (type and UUID)
-    var eventType = req.headers['x-github-event'];
-    var deliveryId = req.headers['x-github-delivery'];
-    console.log('===== %s (%s) ====='.yellow, eventType, deliveryId);
+    webHook.initLog();
 
-    // Verify signature based on secret token.
-    // Deny with 403 (Forbidden) if incorrect.
-    var expectedSignature = results[0];
-    if (!verifySignature(req, expectedSignature)) {
-      console.log('Invalid signature: denying request'.red);
-      res.statusCode  = 403;
-      return res.end('Invalid signature: denying request.');
-    }
-
-    // All dandy?  Cool, parse the JSON and display it in the console!
-    var payload = JSON.parse(results[1]);
-    console.log(util.inspect(payload, { colors: true }));
-    // …then just reply politely.
-    res.end('OK');
+    console.log('\nJust hit Ctrl+C to stop this server.\n'.gray);
   });
-});
-
-// OK, so let's listen on a random available port then…
-server.listen(function() {
-
-  // …and display it so we can `ngrok http` over it
-  console.log('Demo webhook endpoint listening on port'.green,
-    String(server.address().port).cyan);
-
-  // Also display this run's secret token, so we can use that to
-  // (re-)configure our webhook on GitHub.
-  console.log('Secret token for this run is:', secretToken.yellow);
 });
