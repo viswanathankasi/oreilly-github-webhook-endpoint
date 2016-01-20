@@ -1,7 +1,7 @@
 // Homepage and OAuth Web Flow
 // ===========================
 
-// [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) is always a good idea
+// [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) is always a good idea.
 'use strict'
 
 // Modules we need in this file

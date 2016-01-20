@@ -1,7 +1,7 @@
 // Server Entry Point
 // ==================
 
-// [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) is always a good idea
+// [Strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) is always a good idea.
 'use strict'
 
 // A number of our own modules rely on `String` extensions by the `colors` module,
@@ -72,12 +72,7 @@ getPort(DEFAULT_PORT, function (err, port) {
   // An error still?  OK, let's bail out.
   if (err) {
     console.error('Could not start server:', err)
-    // Exit code zero usually means "all is fine", but non-zero exit
-    // codes will yield a very verbose output from the server on
-    // its console, and we don't want to scare users, that are not
-    // expected to be proficient at Node, into thinking they did something
-    // terrible.  So zero it is.
-    process.exit(0)
+    process.exit()
   }
 
   // OK, so let's listen on whatever available port we got then…

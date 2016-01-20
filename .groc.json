@@ -5,5 +5,6 @@
     "server.js",
     "README.md"
   ],
-  "strip": "--no-strip"
+  "strip": "--no-strip",
+  "github": true
 }

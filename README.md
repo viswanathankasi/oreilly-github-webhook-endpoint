@@ -1,7 +1,7 @@
 Demo GitHub API-based Service
 =============================
 
-This is a demo webhook endpoint (server) for lesson A307 of the [Mastering Advanced GitHub](#FIXME) video series at O’Reilly.
+This is a demo webhook endpoint (server) for chapter A4 of the [Mastering Advanced GitHub](#FIXME) video series at O’Reilly, focusing on the GitHub API.
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
@@ -14,7 +14,7 @@ Usage
   4. Run `npm install` to get the (few) dependencies
   5. Run `npm start` to run the server
 
-This will run the server on a **random available port** of your machine, which will change just about every time.  It will look something like this:
+This will run the server on **port 45678, or the nearest higher available port** of your machine.  It will look something like this:
 
 ```text
 > webhook-endpoint@1.0.0 start …/oreilly-github-webhook-endpoint
@@ -50,6 +50,11 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 ```
 
 Until you stop ngrok by hitting <kbd>Ctrl+C</kbd>, you've got your tunnel running.  You can now configure your Webhook to use the public URL based off `ngrok.com`, and this webhook server will dump the JSON payloads GitHub sends into its own Terminal console.
+
+Full annotated source
+---------------------
+
+The full annotated source for this is [available online](http://deliciousinsights.github.io/oreilly-github-webhook-endpoint/).
 
 License
 -------
