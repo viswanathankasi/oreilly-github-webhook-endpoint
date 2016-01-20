@@ -1,7 +1,9 @@
-Demo Webhook Endpoint
-=====================
+Demo GitHub API-based Service
+=============================
 
 This is a demo webhook endpoint (server) for lesson A307 of the [Mastering Advanced GitHub](#FIXME) video series at O’Reilly.
+
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Usage
 -----
