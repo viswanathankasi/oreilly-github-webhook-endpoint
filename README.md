@@ -18,10 +18,19 @@ This will run the server on a **random available port** of your machine, which w
 
 ```text
 > webhook-endpoint@1.0.0 start …/oreilly-github-webhook-endpoint
+> npm start
+
+> webhook-endpoint@1.0.0 start /Users/tdd/perso/delicious-insights/screencasts/oreilly-github/repos/oreilly-github-webhook-endpoint
 > node server.js
 
-Demo webhook endpoint listening on port 53770
-Secret token for this run is: 28c927e5a40b12b27899730275c4a4b5dbccf2e8ffeab65d5ca7fe015666c862
+GitHub App credentials properly loaded. Checking them…
+Demo service listening on http://localhost:45678/
+Webhook secret token for this run is e31ea528972adc5034492f44eae6870a06c6c8ed8a3601c61af188578b1b1069
+
+Just hit Ctrl+C to stop this server.
+
+\o/ You have a running ngrok session for our port: https://1d029b52.ngrok.io
+\o/ GitHub App credentials seem to successfully authenticate.
 ```
 
 But this is just on your machine, and you need GitHub’s servers to be able to access it.  For this, you need some sort of tunnel that connects some network port and address visible to the internet to your own machine and port.  One of the easiest ways to accomplish that across environments and setups is **[ngrok](https://ngrok.com/)**.
