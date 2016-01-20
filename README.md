@@ -33,8 +33,8 @@ Just hit Ctrl+C to stop this server.
 But this is just on your machine, and you need GitHub’s servers to be able to access it.  For this, you need some sort of tunnel that connects some network port and address visible to the internet to your own machine and port.  One of the easiest ways to accomplish that across environments and setups is **[ngrok](https://ngrok.com/)**.
 
   1. [Download](https://ngrok.com/download) ngrok
-  2. Make a note of the port your webhook endpoint ran on; for these instructions, we'll assume it was `53770`
-  3. Open another Terminal window, and run `ngrok http <the-port>`, for instance `ngrok http 53770`.
+  2. Make a note of the port your webhook endpoint ran on; for these instructions, we'll assume it was `45678`
+  3. Open another Terminal window, and run `ngrok http <the-port>`, for instance `ngrok http 45678`.
 
 This will clear the window and run an ngrok client on your machine, acting as a sort of reverse-proxy so the internet can access your server, both over HTTPS and HTTP.  After a second or two, you should see something that looks like this:
 
@@ -42,8 +42,8 @@ This will clear the window and run an ngrok client on your machine, acting as a 
 Tunnel Status                 online
 Version                       2.0.19/2.0.19
 Web Interface                 127.0.0.1:4040
-Forwarding                    http://1420f0d6.ngrok.com -> localhost:53770
-Forwarding                    https://1420f0d6.ngrok.com -> localhost:53770
+Forwarding                    http://1420f0d6.ngrok.com -> localhost:45678
+Forwarding                    https://1420f0d6.ngrok.com -> localhost:45678
 
 Connections                   ttl     opn     rt1     rt5     p50     p90
                               0       0       0.00    0.00    0.00    0.00
