@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/verify-signature</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/verify-signature"><meta name="groc-project-path" content="lib/verify-signature.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/lib/verify-signature.js">lib/verify-signature.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="helper-signature-verification">Helper: Signature verification</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Because we <a href="https://developer.github.com/webhooks/securing/">secure our webhook</a>,
+we need to compare the <a href="https://en.wikipedia.org/wiki/Hash-based_message_authentication_code">HMAC-SHA1</a>
+signature of an incoming webhook event request with the signature we computed
+locally for this request&#39;s payload, and make sure they match.</p>
+<p>In order to really score security points, we want to make sure we compare
+signature buffers <strong>in constant time</strong>, to prevent
+<a href="https://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>.  This is a small
+module to do exactly that</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span>
+
+<span class="hljs-keyword">var</span> secureCompare = <span class="hljs-built_in">require</span>(<span class="hljs-string">'buffer-equal-constant-time'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Default export is a function to extract GitHub’s webhook signature from
+a passed request and securely compare it (that is, in constant time, to
+prevent timing attacks) against the expect signature.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>request</code>: an <code>http.IncomingMessage</code> with the proper header (<code>X-Hub-Signature</code>).</li>
+<li><code>expected</code>: the expected HMAC-SHA1 signature, without the <code>sha1=</code> GitHub prepends.</li>
+</ul>
+<p>Returns a boolean.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verifySignature</span> (<span class="hljs-params">request, expected</span>) </span>{
+  <span class="hljs-keyword">var</span> sentSignature = request.headers[<span class="hljs-string">'x-hub-signature'</span>] || <span class="hljs-string">''</span>
+  <span class="hljs-keyword">return</span> secureCompare(<span class="hljs-keyword">new</span> Buffer(sentSignature), <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'sha1='</span> + expected))
+}</div></div></div></div></body></html>

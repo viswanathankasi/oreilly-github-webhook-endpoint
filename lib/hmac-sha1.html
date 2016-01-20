@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/hmac-sha1</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/hmac-sha1"><meta name="groc-project-path" content="lib/hmac-sha1.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/lib/hmac-sha1.js">lib/hmac-sha1.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="helper-hmac-sha1">Helper: HMAC-SHA1</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Because we <a href="https://developer.github.com/webhooks/securing/">secure our webhook</a>,
+we need to be able to compute the <a href="https://en.wikipedia.org/wiki/Hash-based_message_authentication_code">HMAC-SHA1</a>
+signature of an incoming stream (an HTTP request&#39;s body stream, in fact) with a
+given key (the secret token defined for the webhook).  This is a small module to do that.
+It intentionally uses pipes not to preclude other, parallel consumptions of the
+source stream.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We just need Node’s built-in crypto module for this.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">'crypto'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Default export is a function to compute a stream&#39;s HMAC-SHA1 using a given key.
+Parameters:</p>
+<ul>
+<li><code>stream</code>: a <em>readable stream</em> whose content is going to be digested.</li>
+<li><code>key</code>: a <code>String</code> or <code>Buffer</code> containing the key to prime the HMAC.</li>
+<li><code>callback</code>: the error-first callback that will receive the HMAC-SHA1 signature.</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hmacSha1</span> (<span class="hljs-params">stream, key, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> signer = crypto.createHmac(<span class="hljs-string">'SHA1'</span>, key, { encoding: <span class="hljs-string">'hex'</span> })
+  <span class="hljs-keyword">var</span> result = <span class="hljs-string">''</span>
+  stream.pipe(signer)
+  signer.on(<span class="hljs-string">'readable'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ result += signer.read() || <span class="hljs-string">''</span> })
+  signer.on(<span class="hljs-string">'end'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ callback(<span class="hljs-literal">null</span>, result) })
+  signer.on(<span class="hljs-string">'error'</span>, callback)
+}</div></div></div></div></body></html>

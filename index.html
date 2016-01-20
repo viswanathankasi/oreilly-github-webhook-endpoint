@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="demo-github-api-based-service">Demo GitHub API-based Service</h1>
+<p>This is a demo webhook endpoint (server) for chapter A4 of the <a href="#FIXME">Mastering Advanced GitHub</a> video series at O’Reilly, focusing on the GitHub API.</p>
+<p><a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a></p>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Make sure you have <a href="https://nodejs.org/en/download/">Node.js installed</a></li>
+<li>Clone this repo</li>
+<li>Open a Terminal and <code>cd</code> into the clone&#39;s directory</li>
+<li>Run <code>npm install</code> to get the (few) dependencies</li>
+<li>Run <code>npm start</code> to run the server</li>
+</ol>
+<p>This will run the server on <strong>port 45678, or the nearest higher available port</strong> of your machine.  It will look something like this:</p>
+<pre><code class="lang-text">&gt; webhook-endpoint@1.0.0 start …/oreilly-github-webhook-endpoint
+&gt; node server.js
+
+GitHub App credentials properly loaded. Checking them…
+Demo service listening on http://localhost:45678/
+Webhook secret token for this run is e31ea528972adc5034492f44eae6870a06c6c8ed8a3601c61af188578b1b1069
+
+Just hit Ctrl+C to stop this server.
+
+[!] Don’t forget to launch an ngrok session: ngrok http 45678
+\o/ GitHub App credentials seem to successfully authenticate.</code></pre>
+<p>But this is just on your machine, and you need GitHub’s servers to be able to access it.  For this, you need some sort of tunnel that connects some network port and address visible to the internet to your own machine and port.  One of the easiest ways to accomplish that across environments and setups is <strong><a href="https://ngrok.com/">ngrok</a></strong>.</p>
+<ol>
+<li><a href="https://ngrok.com/download">Download</a> ngrok</li>
+<li>Make a note of the port your webhook endpoint ran on; for these instructions, we&#39;ll assume it was <code>45678</code></li>
+<li>Open another Terminal window, and run <code>ngrok http &lt;the-port&gt;</code>, for instance <code>ngrok http 45678</code>.</li>
+</ol>
+<p>This will clear the window and run an ngrok client on your machine, acting as a sort of reverse-proxy so the internet can access your server, both over HTTPS and HTTP.  After a second or two, you should see something that looks like this:</p>
+<pre><code class="lang-text">Tunnel Status                 online
+Version                       2.0.19/2.0.19
+Web Interface                 127.0.0.1:4040
+Forwarding                    http://1420f0d6.ngrok.com -&gt; localhost:45678
+Forwarding                    https://1420f0d6.ngrok.com -&gt; localhost:45678
+
+Connections                   ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00</code></pre>
+<p>Until you stop ngrok by hitting <kbd>Ctrl+C</kbd>, you&#39;ve got your tunnel running.  You can now configure your Webhook to use the public URL based off <code>ngrok.com</code>, and this webhook server will dump the JSON payloads GitHub sends into its own Terminal console.</p>
+<h2 id="full-annotated-source">Full annotated source</h2>
+<p>The full annotated source for this is <a href="http://deliciousinsights.github.io/oreilly-github-webhook-endpoint/">available online</a>.</p>
+<h2 id="license">License</h2>
+<p>This repo © 2016 Christophe Porteneuve &amp; Delicious Insights, and is <a href="/LICENSE">MIT licensed</a>.</p></div></div></div></div></body></html>

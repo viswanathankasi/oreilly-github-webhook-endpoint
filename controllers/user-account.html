@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><title>controllers/user-account</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="controllers/user-account"><meta name="groc-project-path" content="controllers/user-account.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/controllers/user-account.js">controllers/user-account.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="homepage-and-oauth-web-flow">Homepage and OAuth Web Flow</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="modules-we-need-in-this-file">Modules we need in this file</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This loads both third-party (from <a href="http://npmjs.com/">npm</a>) and local stuff (paths starting with <code>../</code>).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)
+<span class="hljs-keyword">var</span> gitHubBridge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/github-bridge'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="routes-provided-by-this-quotcontrollerquot">Routes provided by this &quot;controller&quot;</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> router = <span class="hljs-keyword">new</span> express.Router()
+router.get(<span class="hljs-string">'/'</span>, homePage)
+router.get(<span class="hljs-string">'/oauth/authorize'</span>, requestGitHubAuthorization)
+router.get(<span class="hljs-string">'/oauth/callback'</span>, exchangeAuthCodeForToken)
+router.get(<span class="hljs-string">'/oauth/check_token'</span>, checkToken)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="token-validity-check">Token validity check</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This route handler verifies that our known access token still works
+(in other words, that it wasn&#39;t revoked by the user, usually interactively
+in their <a href="https://github.com/settings/applications">Application settings</a>).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkToken</span> (<span class="hljs-params">req, res</span>) </span>{
+  gitHubBridge.checkToken(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      res.status(<span class="hljs-number">503</span>).end(err)
+      <span class="hljs-keyword">return</span>
+    }
+
+    req.flash(<span class="hljs-string">'info'</span>, <span class="hljs-string">'Your OAuth token is still valid!'</span>)
+    res.redirect(<span class="hljs-string">'/'</span>)
+  })
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="oauth-web-flow-final-step">OAuth Web Flow, final step</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Once the user interactively granted us a permission on their
+GitHub authorization screen, GitHub calls our callback URL with
+a one-time authorization code that expires quite fast.  We exchange
+it for the actual access token through a server-to-server request,
+so it&#39;s never visible by third-parties.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exchangeAuthCodeForToken</span> (<span class="hljs-params">req, res</span>) </span>{
+  gitHubBridge.exchangeAuthCodeForToken(req.query.code, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      res.status(<span class="hljs-number">503</span>).end(err)
+      <span class="hljs-keyword">return</span>
+    }
+
+    req.flash(<span class="hljs-string">'success'</span>, <span class="hljs-string">'Successfully obtained your OAuth token!'</span>)
+    res.redirect(<span class="hljs-string">'/'</span>)
+  })
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="web-app-homepage">Web app homepage</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is what you get when visiting the server&#39;s root URL.
+Displays a number of buttons for the various actions we allow:
+authorizing, checking the token is still valid, and setting up
+the webhook.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">homePage</span> (<span class="hljs-params">req, res</span>) </span>{
+  res.render(<span class="hljs-string">'home'</span>, {
+    authenticated: gitHubBridge.isAuthenticated(),
+    reviewPermissionsURL: gitHubBridge.getReviewURL()
+  })
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="oauth-web-flow-step-1">OAuth Web Flow, step 1</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is the first step, triggered when you click the
+&quot;Authorize this app on GitHub&quot; button on the unauthenticated
+homepage.  Redirects to a properly-crafted URL at GitHub.com
+that lets the end-user interactively review our requested
+permissions and authorize us.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">requestGitHubAuthorization</span> (<span class="hljs-params">req, res</span>) </span>{
+  res.redirect(gitHubBridge.getAuthorizationURL())
+}
+
+exports.router = router</div></div></div></div></body></html>

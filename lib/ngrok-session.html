@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/ngrok-session</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/ngrok-session"><meta name="groc-project-path" content="lib/ngrok-session.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/lib/ngrok-session.js">lib/ngrok-session.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="ngrok-session-detection">ngrok Session Detection</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This demo server would usually run locally, on the machine of
+our users sitting on their LAN.  Because this server provides
+a webhook endpoint, it must be accessible from GitHub’s servers,
+ideally through a public HTTPS URL.  A wonderful little tool that
+lets us do that easily is <a href="https://ngrok.com/">ngrok</a>.</p>
+<p>To make things even easier on our users, we&#39;d like our server to
+be able to detect a running ngrok instance on the machine, and
+determine the public HTTPS URL it offers over our server instance.
+This module does exactly that, thanks to ngrok&#39;s HTTP API.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>As always, we use <code>superagent</code> for manual outgoing HTTP requests.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A hash of running ngrok sessions, per local TCP port.
+We really will only ever store a single key/value pair in
+there, based on our current local TCP port for the main HTTP
+server of this app, but I like the flexibility should we ever
+expose multiple endpoints on multiple ports.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> ngrokSessions = {}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Public function that queries ngrok&#39;s HTTP API to detect
+a current mapping over a given local port.  If no ngrok
+is running, will return a network error like <code>ECONNREFUSED</code>.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRunningNgrokSession</span> (<span class="hljs-params">localPort, callback</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If we already have the mapping info in cache, call the
+callback as soon as possible instead of re-computing things.
+We dont <em>synchronously call</em> our callback to <a href="http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony"><strong>avoid
+releasing Zalgo</strong></a>.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">if</span> (ngrokSessions[localPort]) {
+    process.nextTick(callback, <span class="hljs-literal">null</span>, ngrokSessions[localPort])
+    <span class="hljs-keyword">return</span>
+  }
+
+  request</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Any running ngrok provides a web interface, usually
+on port 4040.  It also exposes an HTTP+JSON API there.</p></div></div><div class="code"><div class="wrapper">    .get(<span class="hljs-string">'http://localhost:4040/api/tunnels'</span>)
+    .end(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, res</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> callback(err)
+      }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Look for a tunnel description that has our desired
+local port as target, and grab the HTTPS mapping for it.</p>
+<p>We use <code>some</code> here instead of <code>forEach</code> to short-circuit
+automatically once found, because superfluous iterations
+give me skin rash.</p></div></div><div class="code"><div class="wrapper">      res.body.tunnels.some(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tunnel</span>) </span>{
+        <span class="hljs-keyword">var</span> found =
+          tunnel.config.addr === <span class="hljs-string">'localhost:'</span> + localPort &amp;&amp;
+          tunnel.proto === <span class="hljs-string">'https'</span>
+        <span class="hljs-keyword">if</span> (found) {
+          ngrokSessions[localPort] = tunnel.public_url
+          callback(<span class="hljs-literal">null</span>, tunnel.public_url)
+        }
+        <span class="hljs-keyword">return</span> found
+      })
+    })
+}
+
+<span class="hljs-built_in">module</span>.exports = getRunningNgrokSession</div></div></div></div></body></html>

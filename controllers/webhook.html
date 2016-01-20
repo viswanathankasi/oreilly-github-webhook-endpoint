@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><title>controllers/webhook</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="controllers/webhook"><meta name="groc-project-path" content="controllers/webhook.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/controllers/webhook.js">controllers/webhook.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="webhook-management-and-endpoint">Webhook Management and Endpoint</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="modules-we-need-in-this-file">Modules we need in this file</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This loads both third-party (from <a href="http://npmjs.com/">npm</a>) and local stuff (paths starting with <code>../</code>).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> ciService = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/ci-service'</span>)
+<span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)
+<span class="hljs-keyword">var</span> findNgrokURL = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/ngrok-session'</span>)
+<span class="hljs-keyword">var</span> gitHubBridge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/github-bridge'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="routes-provided-by-this-quotcontrollerquot">Routes provided by this &quot;controller&quot;</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> router = <span class="hljs-keyword">new</span> express.Router()
+router.get(<span class="hljs-string">'/webhook/setup'</span>, renderRepoListForSetup)
+router.post(<span class="hljs-string">'/webhook/setup'</span>, setupWebhook)
+router.post(<span class="hljs-string">'/webhook'</span>, handleWebhookEvent)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="configuration">Configuration</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We need to know which local HTTP port we&#39;re listening on,
+mostly to assert that <a href="https://ngrok.com/">ngrok</a> is running and get our
+web-facing HTTPS URL through it.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> localPort</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is called by the main server file, with our actual, local
+HTTP root URL, including the network port. We mostly log useful
+startup info on the console, for informational purposes, and verify
+whether ngrok is running, and which public HTTPS URL it maps onto
+our own, local server.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configure</span> (<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Webhook secret token for this run is'</span>.green,
+    gitHubBridge.SECRET_TOKEN.cyan)
+
+  localPort = options.rootURL.split(<span class="hljs-string">':'</span>)[<span class="hljs-number">2</span>]
+  findNgrokURL(localPort, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">_, ngrokURL</span>) </span>{
+    <span class="hljs-keyword">if</span> (ngrokURL) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\\o/ You have a running ngrok session for our port:'</span>.green, ngrokURL.cyan)
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">var</span> cmd = <span class="hljs-string">'ngrok http '</span> + localPort
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'[!] Don’t forget to launch an ngrok session:'</span>.yellow, cmd.cyan)
+    }
+  })
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="webhook-endpoint">Webhook endpoint</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Which <a href="https://developer.github.com/v3/activity/events/types/#pullrequestevent"><code>PullRequestEvent</code></a>
+actions we&#39;re interested in: first open and later pushes.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> ACCEPTABLE_PR_ACTIONS = [<span class="hljs-string">'opened'</span>, <span class="hljs-string">'synchronize'</span>]
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleWebhookEvent</span> (<span class="hljs-params">req, res</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We delegate to the GitHub API bridge the entire task
+of verifying that the incoming request is properly signed with
+our secret token (thereby authenticating the request), and
+parsing the JSON payload for it when it&#39;s approved.</p></div></div><div class="code"><div class="wrapper">  gitHubBridge.loadAndVerifyWebhookEventPayload(req, res, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If invalid, the bridge already set up the response, we don&#39;t need to
+do anything more.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    res.end(<span class="hljs-string">'OK'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Is this a webhook event we&#39;re interested in?  If so, delegate to the
+CI service core…</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (result.eventType === <span class="hljs-string">'pull_request'</span> &amp;&amp;
+        ACCEPTABLE_PR_ACTIONS.indexOf(result.payload.action) !== -<span class="hljs-number">1</span>) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>…but do that asynchronously, so we can guarantee an extremely fast
+response to GitHub.</p></div></div><div class="code"><div class="wrapper">      process.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        ciService.handleEvent(result.payload)
+      })
+    }
+  })
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="webhook-setup-screen">Webhook Setup Screen</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To set up a webhook, we need to select a repo to latch it onto,
+and to provide the public HTTPS URL that maps to our local demo server.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderRepoListForSetup</span> (<span class="hljs-params">req, res</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If ngrok is launched already, we can auto-detect the public HTTPS URL.
+If it&#39;s not, the end-user will have to launch it and manually fill the
+mandatory field for it.</p></div></div><div class="code"><div class="wrapper">  findNgrokURL(localPort, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">_, ngrokURL</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if an error is passed, it just means no ngrok is running, so we ignore
+it (using <code>_</code> as an identifier conveys this to the linter).</p></div></div><div class="code"><div class="wrapper">    gitHubBridge.getRepositories(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, repos</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        res.status(<span class="hljs-number">503</span>).end(err)
+        <span class="hljs-keyword">return</span>
+      }
+
+      <span class="hljs-keyword">if</span> (ngrokURL) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Our webhook URL sits on a subpath.</p></div></div><div class="code"><div class="wrapper">        ngrokURL += <span class="hljs-string">'/webhook'</span>
+      }
+      res.render(<span class="hljs-string">'setup-webhook'</span>, { repos: repos, ngrok_url: ngrokURL })
+    })
+  })
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="webhook-setup-form-processing">Webhook Setup form processing</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setupWebhook</span> (<span class="hljs-params">req, res</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We just delegate the hook creation to the GitHub API bridge.</p></div></div><div class="code"><div class="wrapper">  gitHubBridge.createHook({
+    nwo: req.body.nwo,
+    url: req.body.ngrok_url
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      res.status(<span class="hljs-number">503</span>).end(err)
+      <span class="hljs-keyword">return</span>
+    }
+
+    req.flash(<span class="hljs-string">'success'</span>, <span class="hljs-string">'Your webhook was set up!'</span>)
+    res.redirect(<span class="hljs-string">'/'</span>)
+  })
+}
+
+<span class="hljs-built_in">module</span>.exports = {
+  configure: configure,
+  router: router
+}</div></div></div></div></body></html>
