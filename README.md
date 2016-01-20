@@ -26,7 +26,7 @@ Webhook secret token for this run is e31ea528972adc5034492f44eae6870a06c6c8ed8a3
 
 Just hit Ctrl+C to stop this server.
 
-\o/ You have a running ngrok session for our port: https://1d029b52.ngrok.io
+[!] Don’t forget to launch an ngrok session: ngrok http 45678
 \o/ GitHub App credentials seem to successfully authenticate.
 ```
 
