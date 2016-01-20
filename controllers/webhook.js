@@ -1,5 +1,6 @@
 'use strict';
 
+var ciService       = require('../lib/ci-service');
 var express         = require('express');
 var findNgrokURL    = require('../lib/ngrok-session');
 var gitHubBridge    = require('../lib/github-bridge');
@@ -27,10 +28,18 @@ function configure(options) {
   });
 }
 
+var ACCEPTABLE_PR_ACTIONS = ['opened', 'synchronize'];
+
 function handleWebhookEvent(req, res) {
-  gitHubBridge.loadAndVerifyWebhookPayload(req, res, function(err, payload) {
+  gitHubBridge.loadAndVerifyWebhookEventPayload(req, res, function(err, result) {
     if (!err) {
       res.end('OK');
+      if ('pull_request' === result.eventType &&
+          -1 !== ACCEPTABLE_PR_ACTIONS.indexOf(result.payload.action)) {
+        process.nextTick(function() {
+          ciService.handleEvent(result.payload);
+        });
+      }
     }
   });
 }
