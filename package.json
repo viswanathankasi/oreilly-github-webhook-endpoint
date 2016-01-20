@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "doc": "rimraf doc && groc",
     "test": "standard --verbose | snazzy"
   },
   "dependencies": {
@@ -23,9 +24,16 @@
     "lodash.uniq": "^4.0.1",
     "morgan": "^1.6.1",
     "raw-body": "^2.1.5",
+    "rimraf": "^2.5.0",
     "superagent": "^1.7.0"
   },
   "devDependencies": {
+    "groc": "^0.8.0",
     "standard": "^5.4.1"
+  },
+  "standard": {
+    "ignore": [
+      "doc/"
+    ]
   }
 }

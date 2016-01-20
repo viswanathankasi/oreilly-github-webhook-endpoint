@@ -1,0 +1,9 @@
+{
+  "glob": [
+    "controllers/*.js",
+    "lib/*.js",
+    "server.js",
+    "README.md"
+  ],
+  "strip": "--no-strip"
+}
