@@ -18,9 +18,6 @@ This will run the server on a **random available port** of your machine, which w
 
 ```text
 > webhook-endpoint@1.0.0 start …/oreilly-github-webhook-endpoint
-> npm start
-
-> webhook-endpoint@1.0.0 start /Users/tdd/perso/delicious-insights/screencasts/oreilly-github/repos/oreilly-github-webhook-endpoint
 > node server.js
 
 GitHub App credentials properly loaded. Checking them…
