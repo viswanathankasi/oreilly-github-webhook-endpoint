@@ -7,6 +7,7 @@ var cookieSession = require('cookie-session');
 var express       = require('express');
 var flash         = require('connect-flash');
 var getPort       = require('getport');
+var gitHubBridge  = require('./lib/github-bridge');
 var http          = require('http');
 var morgan        = require('morgan');
 var userAccount   = require('./controllers/user-account');
@@ -44,12 +45,12 @@ getPort(DEFAULT_PORT, function(err, port) {
 
     // …and display it so we can `ngrok http` over it
     console.log('Demo service listening on'.green, (rootURL + '/').cyan);
-    userAccount.configure({ rootURL: rootURL });
     if (DEFAULT_PORT !== port) {
       console.log('/!\\ Beware!  This is not the intended port (%d): update your app registration.'.red, DEFAULT_PORT);
     }
 
-    webHook.initLog(rootURL);
+    gitHubBridge.configure({ rootURL: rootURL });
+    webHook.configure({ rootURL: rootURL });
 
     console.log('\nJust hit Ctrl+C to stop this server.\n'.gray);
   });

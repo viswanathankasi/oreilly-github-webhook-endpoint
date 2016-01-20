@@ -15,7 +15,7 @@ block content
         .ui.divider
         p.field
          label(for="ngrok_url") ngrok URL (required)
-         input(type="url" name="ngrok_url" id="ngrok_url" placeholder="https://xxxx.ngrok.io/webhook" required pattern="https://[0-9a-f]+\.ngrok\.io/webhook")
+         input(type="url" name="ngrok_url" id="ngrok_url" value=ngrok_url placeholder="https://xxxx.ngrok.io/webhook" required pattern="https://[0-9a-f]+\.ngrok\.io/webhook")
         p: button.ui.large.primary.button(type="submit")
           i.left.icon.plus
           |  Setup the webhook
