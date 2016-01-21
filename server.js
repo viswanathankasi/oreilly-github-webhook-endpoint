@@ -72,7 +72,7 @@ getPort(DEFAULT_PORT, function (err, port) {
   // An error still?  OK, let's bail out.
   if (err) {
     console.error('Could not start server:', err)
-    process.exit()
+    process.exit() // eslint-disable-line no-process-exit
   }
 
   // OK, so let's listen on whatever available port we got then…
