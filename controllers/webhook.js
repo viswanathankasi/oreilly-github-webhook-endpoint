@@ -66,7 +66,7 @@ function handleWebhookEvent (req, res) {
     // If invalid, the bridge already set up the response, we don't need to
     // do anything more.
     if (err) {
-      return;
+      return
     }
 
     res.end('OK')
