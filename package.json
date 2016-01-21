@@ -6,6 +6,9 @@
     "doc": "rimraf doc && groc",
     "test": "standard --verbose | snazzy"
   },
+  "bin": {
+    "create-gist": "bin/create-gist.js"
+  },
   "dependencies": {
     "async": "^1.5.1",
     "body-parser": "^1.14.2",
@@ -17,12 +20,16 @@
     "express": "^4.13.3",
     "getport": "^0.1.0",
     "github": "^0.2.4",
+    "istextorbinary": "^1.0.2",
     "jade": "^1.11.0",
+    "lodash.assign": "^4.0.0",
     "lodash.flatten": "^4.0.0",
     "lodash.invokemap": "^4.0.0",
     "lodash.pluck": "^3.1.2",
     "lodash.uniq": "^4.0.1",
+    "minimist": "^1.2.0",
     "morgan": "^1.6.1",
+    "opn": "^4.0.0",
     "raw-body": "^2.1.5",
     "rimraf": "^2.5.0",
     "superagent": "^1.7.0"
