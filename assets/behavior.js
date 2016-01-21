@@ -87,6 +87,230 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     }, {
       "type": "folder",
       "data": {
+        "path": "bin",
+        "title": "bin"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/tdd/perso/delicious-insights/screencasts/oreilly-github/repos/oreilly-github-webhook-endpoint/bin/create-gist.js",
+            "projectPath": "bin/create-gist.js",
+            "targetPath": "bin/create-gist",
+            "pageTitle": "bin/create-gist",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Gist creation CLI tool",
+                "slug": "gist-creation-cli-tool",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Modules we need in this file",
+                    "slug": "modules-we-need-in-this-file"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "CLI massaging",
+                    "slug": "cli-massaging"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "API client setup",
+                    "slug": "api-client-setup"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Actual API call",
+                    "slug": "actual-api-call"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "File payload building",
+                    "slug": "file-payload-building"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Gist creation CLI tool"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Modules we need in this file",
+                "slug": "modules-we-need-in-this-file"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "CLI massaging",
+                "slug": "cli-massaging"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "API client setup",
+                "slug": "api-client-setup"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Actual API call",
+                "slug": "actual-api-call"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "File payload building",
+                "slug": "file-payload-building"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/tdd/perso/delicious-insights/screencasts/oreilly-github/repos/oreilly-github-webhook-endpoint/bin/issue-to-pr.js",
+            "projectPath": "bin/issue-to-pr.js",
+            "targetPath": "bin/issue-to-pr",
+            "pageTitle": "bin/issue-to-pr",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Issue-to-PR CLI tool",
+                "slug": "issue-to-pr-cli-tool",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Modules we need in this file",
+                    "slug": "modules-we-need-in-this-file"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "CLI massaging",
+                    "slug": "cli-massaging"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "API client setup",
+                    "slug": "api-client-setup"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Actual API calls",
+                    "slug": "actual-api-calls"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Issue-to-PR CLI tool"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Modules we need in this file",
+                "slug": "modules-we-need-in-this-file"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "CLI massaging",
+                "slug": "cli-massaging"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "API client setup",
+                "slug": "api-client-setup"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Actual API calls",
+                "slug": "actual-api-calls"
+              },
+              "depth": 2
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
         "path": "controllers",
         "title": "controllers"
       },

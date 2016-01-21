@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/ngrok-session</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/ngrok-session"><meta name="groc-project-path" content="lib/ngrok-session.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/lib/ngrok-session.js">lib/ngrok-session.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="ngrok-session-detection">ngrok Session Detection</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This demo server would usually run locally, on the machine of
+<!DOCTYPE html><html lang="en"><head><title>lib/ngrok-session</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/ngrok-session"><meta name="groc-project-path" content="lib/ngrok-session.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/ngrok-session.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="ngrok-session-detection">ngrok Session Detection</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This demo server would usually run locally, on the machine of
 our users sitting on their LAN.  Because this server provides
 a webhook endpoint, it must be accessible from GitHub’s servers,
 ideally through a public HTTPS URL.  A wonderful little tool that
@@ -34,8 +34,8 @@ give me skin rash.</p></div></div><div class="code"><div class="wrapper">      r
           tunnel.config.addr === <span class="hljs-string">'localhost:'</span> + localPort &amp;&amp;
           tunnel.proto === <span class="hljs-string">'https'</span>
         <span class="hljs-keyword">if</span> (found) {
-          ngrokSessions[localPort] = tunnel.public_url
-          callback(<span class="hljs-literal">null</span>, tunnel.public_url)
+          ngrokSessions[localPort] = tunnel.public_url</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>return</code> below appeases ESLint when it sees our code
+call <code>callback</code> multiple times…</p></div></div><div class="code"><div class="wrapper">          <span class="hljs-keyword">return</span> callback(<span class="hljs-literal">null</span>, tunnel.public_url)
         }
         <span class="hljs-keyword">return</span> found
       })

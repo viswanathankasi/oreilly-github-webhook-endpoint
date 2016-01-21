@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/github-bridge</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/github-bridge"><meta name="groc-project-path" content="lib/github-bridge.js"><meta name="groc-github-url" content="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/deliciousinsights/oreilly-github-webhook-endpoint/blob/master/lib/github-bridge.js">lib/github-bridge.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="github-api-bridge">GitHub API Bridge</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We mostly rely on <a href="https://github.com/mikedeboer/node-github">node-github</a>
+<!DOCTYPE html><html lang="en"><head><title>lib/github-bridge</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/github-bridge"><meta name="groc-project-path" content="lib/github-bridge.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/github-bridge.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="github-api-bridge">GitHub API Bridge</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We mostly rely on <a href="https://github.com/mikedeboer/node-github">node-github</a>
 (<code>github</code> on npm) to wrap our accesses to GitHub’s API, but sometimes this
 wrapper is a bit too low-level / basic, or outright doesn&#39;t feature extra
 helpers we need (such as specific user-facing GitHub URLs), so we wrapped that
@@ -6,7 +6,8 @@ with an extra layer more amenable to this demo app&#39;s business needs.</p>
 <p>This also has the great advantage of keeping all the API-related code into
 this single module, including persistent state such as GitHub App credentials,
 OAuth access token, and webhook secret token.  Far less coupling across
-controllers, for instance.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="modules-we-need-in-this-file">Modules we need in this file</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This loads both third-party (from <a href="http://npmjs.com/">npm</a>) and local stuff (paths starting with <code>../</code>).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> <span class="hljs-keyword">async</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async'</span>)
+controllers, for instance.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>eslint complexity: [2, 10] </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="modules-we-need-in-this-file">Modules we need in this file</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This loads both third-party (from <a href="http://npmjs.com/">npm</a>) and local stuff (paths starting with <code>../</code>).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> <span class="hljs-keyword">async</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async'</span>)
+<span class="hljs-keyword">var</span> dotenv = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dotenv'</span>)
 <span class="hljs-keyword">var</span> getBody = <span class="hljs-built_in">require</span>(<span class="hljs-string">'raw-body'</span>)
 <span class="hljs-keyword">var</span> GitHub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'github'</span>)
 <span class="hljs-keyword">var</span> hmacSha1 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/hmac-sha1'</span>)
@@ -173,10 +174,10 @@ invalid JSON for some odd reason, then send the parse error back).</p></div></di
         eventType: eventType,
         deliveryId: deliveryId,
         payload: payload
-      }
-      callback(<span class="hljs-literal">null</span>, result)
+      }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>return</code>s below appease ESLint when it sees our code
+call <code>callback</code> multiple times…</p></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">return</span> callback(<span class="hljs-literal">null</span>, result)
     } <span class="hljs-keyword">catch</span> (e) {
-      callback(e)
+      <span class="hljs-keyword">return</span> callback(e)
     }
   })
 }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="startup-time-credential-loading">Startup-time credential loading</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is called directly from this module&#39;s init code (see way above),
@@ -186,7 +187,7 @@ environment, as per the <a href="">12-Factor Apps</a> Manifesto.</p></div></div>
 from a non-versioned (<code>.gitignore</code>&#39;d) file, that we use to populate the
 environment.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> productionMode = (process.env.NODE_ENV === <span class="hljs-string">'production'</span>)
   <span class="hljs-keyword">if</span> (!productionMode) {
-    <span class="hljs-built_in">require</span>(<span class="hljs-string">'dotenv'</span>).load({ silent: <span class="hljs-literal">true</span> })
+    dotenv.load({ silent: <span class="hljs-literal">true</span> })
   }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Our registered <a href="https://github.com/settings/developers">Developer App</a>
 has a fixed set of credentials: Client ID and Client Secret.  We need these.</p></div></div><div class="code"><div class="wrapper">  credentials.clientId = (process.env.CLIENT_ID || <span class="hljs-string">''</span>).trim()
   credentials.clientSecret = (process.env.CLIENT_SECRET || <span class="hljs-string">''</span>).trim()</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>In order to avoid our users having to re-authenticate through GitHub every
@@ -206,9 +207,9 @@ their individual secret tokens.</p></div></div><div class="code"><div class="wra
     <span class="hljs-keyword">if</span> (!productionMode) {
       <span class="hljs-built_in">console</span>.error(<span class="hljs-string">' (you can put these in a non-versioned .env file at the root of this project)'</span>.gray)
     }
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'  (forgot to register this app?  Do it now --&gt; https://github.com/settings/developers)'</span>.gray);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">''</span>);
-    process.exit()
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'  (forgot to register this app?  Do it now --&gt; https://github.com/settings/developers)'</span>.gray)
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">''</span>)
+    process.exit() <span class="hljs-comment">// eslint-disable-line no-process-exit</span>
   }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If we do have app credentials, we&#39;ll verify they&#39;re accurate/valid
 by trying an API request to verify our Rate Limits: successfully authenticated
 such requests have much higher limits.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'GitHub App credentials properly loaded. Checking them…'</span>.green)
@@ -220,12 +221,12 @@ such requests have much higher limits.</p></div></div><div class="code"><div cla
   github.misc.rateLimit({}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>{
     <span class="hljs-keyword">if</span> (err) {
       <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'/!\\ Error when verifying GitHub App credentials'</span>.red, err)
-      process.exit()
+      process.exit() <span class="hljs-comment">// eslint-disable-line no-process-exit</span>
     }
 
     <span class="hljs-keyword">if</span> (data.resources.core.limit &lt;= <span class="hljs-number">60</span>) {
       <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'/!\\ GitHub App credentials seem to fail authentication.'</span>.red)
-      process.exit()
+      process.exit() <span class="hljs-comment">// eslint-disable-line no-process-exit</span>
     }
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\\o/ GitHub App credentials seem to successfully authenticate.'</span>.green)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We started out with API wrapper authentication based on App credentials.
 If we have an access token handy (from a key in our development <code>.env</code> file,

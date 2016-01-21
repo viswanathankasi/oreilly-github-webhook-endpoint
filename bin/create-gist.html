@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><title>bin/create-gist</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="bin/create-gist"><meta name="groc-project-path" content="bin/create-gist.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">bin/create-gist.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gist-creation-cli-tool">Gist creation CLI tool</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is always a good idea.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>eslint-disable no-process-exit </p></div></div><div class="code"><div class="wrapper"><span class="hljs-built_in">require</span>(<span class="hljs-string">'colors'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="modules-we-need-in-this-file">Modules we need in this file</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> assign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash.assign'</span>)
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+<span class="hljs-keyword">var</span> GitHub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'github'</span>)
+<span class="hljs-keyword">var</span> minimist = <span class="hljs-built_in">require</span>(<span class="hljs-string">'minimist'</span>)
+<span class="hljs-keyword">var</span> open = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opn'</span>)
+<span class="hljs-keyword">var</span> Path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">var</span> typeCheck = <span class="hljs-built_in">require</span>(<span class="hljs-string">'istextorbinary'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="cli-massaging">CLI massaging</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Parse the command-line using <a href="https://www.npmjs.com/package/minimist">minimist</a>.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> argv = minimist(process.argv.slice(<span class="hljs-number">2</span>), {
+  string: [<span class="hljs-string">'token'</span>, <span class="hljs-string">'description'</span>],
+  boolean: <span class="hljs-string">'private'</span>
+})</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>No args or help (<code>-h</code>/<code>--help</code>)?  Display usage.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">if</span> (process.argv.length === <span class="hljs-number">2</span> || argv.h || argv.help) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Usage: create-gist [--private] [--token=&lt;token&gt;] [--description=&lt;desc&gt;] path...'</span>)
+  process.exit()
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Try and get the token from the CLI, fallback to the environment, default to empty.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> token = <span class="hljs-built_in">String</span>(argv.token || process.env.TOKEN || <span class="hljs-string">''</span>).trim()</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>No token found?  Can&#39;t proceed!</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">if</span> (!token) {
+  <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Missing token.  Use a TOKEN environment variable or --token=&lt;token&gt; option.'</span>.red)
+  process.exit()
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Compute the files payload from the paths in the CLI, if any</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> files = computeFileList(argv._)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>No eligible files?  Ouch!</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.keys(files).length === <span class="hljs-number">0</span>) {
+  <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'No files to use for the Gist.  Specify files and/or directories.'</span>.red)
+  process.exit()
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="api-client-setup">API client setup</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> github = <span class="hljs-keyword">new</span> GitHub({
+  version: <span class="hljs-string">'3.0.0'</span>,
+  headers: { <span class="hljs-string">'User-Agent'</span>: <span class="hljs-string">'OReilly-GitHub-Training-Gister/1.0'</span> },
+  timeout: <span class="hljs-number">20000</span>
+})
+
+github.authenticate({
+  type: <span class="hljs-string">'oauth'</span>,
+  token: token
+})</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="actual-api-call">Actual API call</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>See <a href="https://developer.github.com/v3/gists/#create-a-gist">the API doc page</a>
+for details.</p></div></div><div class="code"><div class="wrapper">github.gists.create({
+  files: files,
+  description: argv.description,
+  public: !argv.private
+}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-built_in">String</span>(err).red)
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Opening your new gist at'</span>.green, result.html_url.cyan)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>As a nice bonus, automatically open the URL with the user&#39;s
+preferred software/browser.</p></div></div><div class="code"><div class="wrapper">    open(result.html_url, { wait: <span class="hljs-literal">false</span> })
+  }
+})</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="file-payload-building">File payload building</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is the main helper function to build our file list, recursively.
+It automatically ignores binary files (using extension- and content-based
+heuristics).</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computeFileList</span> (<span class="hljs-params">paths</span>) </span>{
+  <span class="hljs-keyword">return</span> paths.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">acc, path</span>) </span>{
+    <span class="hljs-keyword">var</span> stat = fs.statSync(path)
+
+    <span class="hljs-keyword">if</span> (stat.isFile()) {
+      <span class="hljs-keyword">return</span> processFile(acc, path)
+    }
+
+    <span class="hljs-keyword">if</span> (stat.isDirectory()) {
+      <span class="hljs-keyword">var</span> entries = fs.readdirSync(path).map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">entry</span>) </span>{
+        <span class="hljs-keyword">return</span> Path.join(path, entry)
+      })
+      <span class="hljs-keyword">return</span> assign(acc, computeFileList(entries))
+    }
+
+    <span class="hljs-keyword">return</span> acc
+  }, {})
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The core file analysis-and-addition code, used by the main
+algorithm just above.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processFile</span> (<span class="hljs-params">acc, path</span>) </span>{
+  <span class="hljs-keyword">var</span> buffer = fs.readFileSync(path)
+
+  <span class="hljs-keyword">if</span> (typeCheck.isTextSync(path, buffer)) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Gists don&#39;t allow subdirectories, so we&#39;re flattening names using dashes.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">var</span> key = path.replace(<span class="hljs-regexp">/[\\\/]+/</span>, <span class="hljs-string">'-'</span>)
+    <span class="hljs-keyword">var</span> encoding = typeCheck.getEncodingSync(buffer)
+    acc[key] = { content: buffer.toString(encoding) }
+  } <span class="hljs-keyword">else</span> {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Still mention when we&#39;re skipping a file because it&#39;s binary,
+so the end-user isn&#39;t too surprised.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'Skipping'</span>.yellow, path.cyan, <span class="hljs-string">'as it seems binary.'</span>.yellow)
+  }
+
+  <span class="hljs-keyword">return</span> acc
+}</div></div></div></div></body></html>
