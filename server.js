@@ -46,7 +46,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 // Maintain sessions for clients across HTTP requests, storing
 // session data in their cookies, with a tamper-proof signature.
-app.use(cookieSession({ secret: 'GitHub’s API rulez!' }))
+app.use(cookieSession({ name: 'ogwe-session', secret: 'GitHub’s API rulez!' }))
 // Provide flash-message functionality (messages that persist across
 // a [Post-Redirect-Get](https://en.wikipedia.org/wiki/Post/Redirect/Get) flow).
 app.use(flash())
