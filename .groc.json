@@ -1,5 +1,6 @@
 {
   "glob": [
+    "bin/*.js",
     "controllers/*.js",
     "lib/*.js",
     "server.js",
