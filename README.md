@@ -4,6 +4,7 @@ Demo GitHub API-based Service
 This is a demo webhook endpoint (server) for chapter A4 of the [Mastering Advanced GitHub](#FIXME) video series at O’Reilly, focusing on the GitHub API.
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![Dependency Status](https://gemnasium.com/deliciousinsights/oreilly-github-webhook-endpoint.svg)](https://gemnasium.com/deliciousinsights/oreilly-github-webhook-endpoint)
 
 Usage
 -----
