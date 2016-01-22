@@ -17,73 +17,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Demo GitHub API-based Service",
-            "slug": "demo-github-api-based-service",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Usage",
-                "slug": "usage"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Full annotated source",
-                "slug": "full-annotated-source"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "License",
-                "slug": "license"
-              },
-              "depth": 2
-            }
-          ]
-        },
-        "title": "Demo GitHub API-based Service"
+        "title": "index"
       },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Usage",
-            "slug": "usage"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Full annotated source",
-            "slug": "full-annotated-source"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "License",
-            "slug": "license"
-          },
-          "depth": 2
-        }
-      ]
+      "depth": 1
     }, {
       "type": "folder",
       "data": {
@@ -108,105 +44,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "bin/create-gist.js",
             "targetPath": "bin/create-gist",
             "pageTitle": "bin/create-gist",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Gist creation CLI tool",
-                "slug": "gist-creation-cli-tool",
-                "isFileHeader": true
-              },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Modules we need in this file",
-                    "slug": "modules-we-need-in-this-file"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "CLI massaging",
-                    "slug": "cli-massaging"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "API client setup",
-                    "slug": "api-client-setup"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Actual API call",
-                    "slug": "actual-api-call"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "File payload building",
-                    "slug": "file-payload-building"
-                  },
-                  "depth": 2
-                }
-              ]
-            },
-            "title": "Gist creation CLI tool"
+            "title": "create-gist"
           },
-          "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "CLI massaging",
-                "slug": "cli-massaging"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "API client setup",
-                "slug": "api-client-setup"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Actual API call",
-                "slug": "actual-api-call"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "File payload building",
-                "slug": "file-payload-building"
-              },
-              "depth": 2
-            }
-          ]
+          "depth": 2
         }, {
           "type": "file",
           "data": {
@@ -223,89 +63,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "bin/issue-to-pr.js",
             "targetPath": "bin/issue-to-pr",
             "pageTitle": "bin/issue-to-pr",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Issue-to-PR CLI tool",
-                "slug": "issue-to-pr-cli-tool",
-                "isFileHeader": true
-              },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Modules we need in this file",
-                    "slug": "modules-we-need-in-this-file"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "CLI massaging",
-                    "slug": "cli-massaging"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "API client setup",
-                    "slug": "api-client-setup"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Actual API calls",
-                    "slug": "actual-api-calls"
-                  },
-                  "depth": 2
-                }
-              ]
-            },
-            "title": "Issue-to-PR CLI tool"
+            "title": "issue-to-pr"
           },
-          "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "CLI massaging",
-                "slug": "cli-massaging"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "API client setup",
-                "slug": "api-client-setup"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Actual API calls",
-                "slug": "actual-api-calls"
-              },
-              "depth": 2
-            }
-          ]
+          "depth": 2
         }
       ]
     }, {
@@ -332,121 +92,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "controllers/user-account.js",
             "targetPath": "controllers/user-account",
             "pageTitle": "controllers/user-account",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Homepage and OAuth Web Flow",
-                "slug": "homepage-and-oauth-web-flow",
-                "isFileHeader": true
-              },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Modules we need in this file",
-                    "slug": "modules-we-need-in-this-file"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Routes provided by this &quot;controller&quot;",
-                    "slug": "routes-provided-by-this-quotcontrollerquot"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Token validity check",
-                    "slug": "token-validity-check"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "OAuth Web Flow, final step",
-                    "slug": "oauth-web-flow-final-step"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Web app homepage",
-                    "slug": "web-app-homepage"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "OAuth Web Flow, step 1",
-                    "slug": "oauth-web-flow-step-1"
-                  },
-                  "depth": 2
-                }
-              ]
-            },
-            "title": "Homepage and OAuth Web Flow"
+            "title": "user-account"
           },
-          "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Routes provided by this &quot;controller&quot;",
-                "slug": "routes-provided-by-this-quotcontrollerquot"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Token validity check",
-                "slug": "token-validity-check"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "OAuth Web Flow, final step",
-                "slug": "oauth-web-flow-final-step"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Web app homepage",
-                "slug": "web-app-homepage"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "OAuth Web Flow, step 1",
-                "slug": "oauth-web-flow-step-1"
-              },
-              "depth": 2
-            }
-          ]
+          "depth": 2
         }, {
           "type": "file",
           "data": {
@@ -463,121 +111,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "controllers/webhook.js",
             "targetPath": "controllers/webhook",
             "pageTitle": "controllers/webhook",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Webhook Management and Endpoint",
-                "slug": "webhook-management-and-endpoint",
-                "isFileHeader": true
-              },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Modules we need in this file",
-                    "slug": "modules-we-need-in-this-file"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Routes provided by this &quot;controller&quot;",
-                    "slug": "routes-provided-by-this-quotcontrollerquot"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Configuration",
-                    "slug": "configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Webhook endpoint",
-                    "slug": "webhook-endpoint"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Webhook Setup Screen",
-                    "slug": "webhook-setup-screen"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Webhook Setup form processing",
-                    "slug": "webhook-setup-form-processing"
-                  },
-                  "depth": 2
-                }
-              ]
-            },
-            "title": "Webhook Management and Endpoint"
+            "title": "webhook"
           },
-          "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Routes provided by this &quot;controller&quot;",
-                "slug": "routes-provided-by-this-quotcontrollerquot"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Configuration",
-                "slug": "configuration"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Webhook endpoint",
-                "slug": "webhook-endpoint"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Webhook Setup Screen",
-                "slug": "webhook-setup-screen"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Webhook Setup form processing",
-                "slug": "webhook-setup-form-processing"
-              },
-              "depth": 2
-            }
-          ]
+          "depth": 2
         }
       ]
     }, {
@@ -604,73 +140,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/ci-service.js",
             "targetPath": "lib/ci-service",
             "pageTitle": "lib/ci-service",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "CI Service Core",
-                "slug": "ci-service-core",
-                "isFileHeader": true
-              },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Modules we need in this file",
-                    "slug": "modules-we-need-in-this-file"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Banned buzzword analysis",
-                    "slug": "banned-buzzword-analysis"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Main webhook event handler",
-                    "slug": "main-webhook-event-handler"
-                  },
-                  "depth": 2
-                }
-              ]
-            },
-            "title": "CI Service Core"
+            "title": "ci-service"
           },
-          "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Banned buzzword analysis",
-                "slug": "banned-buzzword-analysis"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Main webhook event handler",
-                "slug": "main-webhook-event-handler"
-              },
-              "depth": 2
-            }
-          ]
+          "depth": 2
         }, {
           "type": "file",
           "data": {
@@ -687,249 +159,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/github-bridge.js",
             "targetPath": "lib/github-bridge",
             "pageTitle": "lib/github-bridge",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "GitHub API Bridge",
-                "slug": "github-api-bridge",
-                "isFileHeader": true
-              },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Modules we need in this file",
-                    "slug": "modules-we-need-in-this-file"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GitHub credentials and API wrapper",
-                    "slug": "github-credentials-and-api-wrapper"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Token validity check",
-                    "slug": "token-validity-check"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Webhook Setup",
-                    "slug": "webhook-setup"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Configuration",
-                    "slug": "configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "OAuth Web Flow, Final Step",
-                    "slug": "oauth-web-flow-final-step"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Authorization URL",
-                    "slug": "authorization-url"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Commits in a Pull Request",
-                    "slug": "commits-in-a-pull-request"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "List user-accessible repositories",
-                    "slug": "list-user-accessible-repositories"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Permissions review URL",
-                    "slug": "permissions-review-url"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Authentication status",
-                    "slug": "authentication-status"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Webhook event payload verification",
-                    "slug": "webhook-event-payload-verification"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Startup-time credential loading",
-                    "slug": "startup-time-credential-loading"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Status sending",
-                    "slug": "status-sending"
-                  },
-                  "depth": 2
-                }
-              ]
-            },
-            "title": "GitHub API Bridge"
+            "title": "github-bridge"
           },
-          "depth": 2,
-          "outline": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "GitHub credentials and API wrapper",
-                "slug": "github-credentials-and-api-wrapper"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Token validity check",
-                "slug": "token-validity-check"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Webhook Setup",
-                "slug": "webhook-setup"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Configuration",
-                "slug": "configuration"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "OAuth Web Flow, Final Step",
-                "slug": "oauth-web-flow-final-step"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Authorization URL",
-                "slug": "authorization-url"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Commits in a Pull Request",
-                "slug": "commits-in-a-pull-request"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "List user-accessible repositories",
-                "slug": "list-user-accessible-repositories"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Permissions review URL",
-                "slug": "permissions-review-url"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Authentication status",
-                "slug": "authentication-status"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Webhook event payload verification",
-                "slug": "webhook-event-payload-verification"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Startup-time credential loading",
-                "slug": "startup-time-credential-loading"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Status sending",
-                "slug": "status-sending"
-              },
-              "depth": 2
-            }
-          ]
+          "depth": 2
         }, {
           "type": "file",
           "data": {
@@ -946,20 +178,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/hmac-sha1.js",
             "targetPath": "lib/hmac-sha1",
             "pageTitle": "lib/hmac-sha1",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Helper: HMAC-SHA1",
-                "slug": "helper-hmac-sha1",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "Helper: HMAC-SHA1"
+            "title": "hmac-sha1"
           },
-          "depth": 2,
-          "outline": []
+          "depth": 2
         }, {
           "type": "file",
           "data": {
@@ -976,20 +197,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/ngrok-session.js",
             "targetPath": "lib/ngrok-session",
             "pageTitle": "lib/ngrok-session",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "ngrok Session Detection",
-                "slug": "ngrok-session-detection",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "ngrok Session Detection"
+            "title": "ngrok-session"
           },
-          "depth": 2,
-          "outline": []
+          "depth": 2
         }, {
           "type": "file",
           "data": {
@@ -1006,20 +216,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/verify-signature.js",
             "targetPath": "lib/verify-signature",
             "pageTitle": "lib/verify-signature",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Helper: Signature verification",
-                "slug": "helper-signature-verification",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "Helper: Signature verification"
+            "title": "verify-signature"
           },
-          "depth": 2,
-          "outline": []
+          "depth": 2
         }
       ]
     }, {
@@ -1038,89 +237,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "server.js",
         "targetPath": "server",
         "pageTitle": "server",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Server Entry Point",
-            "slug": "server-entry-point",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Modules we need in this file",
-                "slug": "modules-we-need-in-this-file"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "App &amp; Server Setup",
-                "slug": "app-amp-server-setup"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Middleware configuration",
-                "slug": "middleware-configuration"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Server Launch",
-                "slug": "server-launch"
-              },
-              "depth": 2
-            }
-          ]
-        },
-        "title": "Server Entry Point"
+        "title": "server"
       },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Modules we need in this file",
-            "slug": "modules-we-need-in-this-file"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "App &amp; Server Setup",
-            "slug": "app-amp-server-setup"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Middleware configuration",
-            "slug": "middleware-configuration"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Server Launch",
-            "slug": "server-launch"
-          },
-          "depth": 2
-        }
-      ]
+      "depth": 1
     }
   ];
 
