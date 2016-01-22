@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "groc": "^0.8.0",
+    "snazzy": "^2.0.1",
     "standard": "^5.4.1"
   },
   "standard": {
