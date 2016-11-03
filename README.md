@@ -1,5 +1,5 @@
-[![dependency Status](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint/status.svg?style=flat)](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint/status.svg)
-[![devDependency Status](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint/dev-status.svg?style=flat)](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint/dev-status.svg)
+[![dependency Status](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint/status.svg?style=flat)](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint#info=dependencies)
+[![devDependency Status](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint/dev-status.svg?style=flat)](https://david-dm.org/viswanathankasi/oreilly-github-webhook-endpoint#info=devDependencies)
 
 Demo Webhook Endpoint
 =====================
