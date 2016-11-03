@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "chai": "^2.1.0",
+    "chai": "^3.4.1",
     "colors": "^1.1.2",
     "raw-body": "^2.1.5"
   }
