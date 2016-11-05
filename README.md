@@ -49,3 +49,4 @@ License
 -------
 
 This repo © 2016 Christophe Porteneuve & Delicious Insights, and is [MIT licensed](/LICENSE).
+   
